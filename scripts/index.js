@@ -13,7 +13,8 @@ function createCard(name, link, removeCard) {
   cardDeleteButton.addEventListener('click', removeCard);
   cardImage.src = link;
   cardTitle.textContent = name;
-  placesListElement.appendChild(cardNode);
+  return cardNode;
+  
 }
 // Функция удаления карточки
 const removeCard = (event) => {
@@ -22,5 +23,6 @@ const removeCard = (event) => {
 };
 // Выводим карточки на страницу
 initialCards.forEach((card) => {
-  createCard(card.name, card.link, removeCard);
+  let cardNode = createCard(card.name, card.link, removeCard);
+  placesListElement.appendChild(cardNode);
 });
