@@ -1,8 +1,10 @@
 //  Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
+
 //  DOM узлы
 const pageContentElement = document.querySelector('.content');
 const placesListElement = pageContentElement.querySelector('.places__list');
+
 //  Функция создания карточки
 function createCard(card, removeCard) {
   const cardNode  = cardTemplate.querySelector('.card').cloneNode(true);
@@ -16,10 +18,12 @@ function createCard(card, removeCard) {
   cardTitle.textContent = card.name;
   return cardNode;
 }
+
 // Функция удаления карточки
 const removeCard = (card) => {
   card.remove();
 };
+
 // Выводим карточки на страницу
 initialCards.forEach((card) => {
   const cardNode = createCard(card, removeCard);
