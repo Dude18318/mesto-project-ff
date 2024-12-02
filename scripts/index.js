@@ -17,8 +17,8 @@ function createCard(name,link, removeCard ) {
 }
 // Функция удаления карточки
   const removeCard = (event) => {
-  const parentElement = event.target.parentElement;
-  parentElement.remove();
+    const parentElement = event.target.parentElement;
+    parentElement.remove();
  }; 
 // Выводим карточки на страницу
 initialCards.forEach((card) => { 
