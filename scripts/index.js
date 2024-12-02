@@ -10,12 +10,13 @@ function createCard(name, link, removeCard) {
   const cardTitle = cardNode.querySelector('.card__title');
   const cardImage = cardNode.querySelector('.card__image');
   const cardDeleteButton = cardNode.querySelector('.card__delete-button');
+  
   cardDeleteButton.addEventListener('click', removeCard);
   cardImage.src = link;
   cardTitle.textContent = name;
   return cardNode;
-  
 }
+
 // Функция удаления карточки
 const removeCard = (event) => {
   const parentElement = event.target.parentElement;
