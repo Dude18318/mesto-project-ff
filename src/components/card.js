@@ -1,4 +1,4 @@
-import { closeModal,openModal } from './modal.js';
+
 function createCard(card, removeCard ,handleOpenImage,handleLikeButtonClick) {
   const cardTemplate      = document.querySelector('#card-template').content;
   const cardNode          = cardTemplate.querySelector('.card').cloneNode(true);
@@ -21,4 +21,11 @@ const removeCard = (card) => {
   card.remove();
 };
 
-export {createCard,removeCard};
+const handleLikeButtonClick = (evt) => {
+  if (evt.currentTarget.classList.contains('card__like-button_is-active')){
+	  evt.currentTarget.classList.remove('card__like-button_is-active');
+  }else {
+    evt.currentTarget.classList.add('card__like-button_is-active');
+  }
+}
+export {createCard,removeCard,handleLikeButtonClick};
