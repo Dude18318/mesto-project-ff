@@ -1,11 +1,6 @@
 const openModal = (popup) => {
   popup.classList.add('popup_is-opened');
-  const popupCloseButton = popup.querySelector('.popup__close');
   document.addEventListener('keydown', handlePressEsc);
-  popupCloseButton.addEventListener('click', (evt) => {
-    console.log(popup);
-    closeModal(popup);
-  } );
 }
 
 const closeModal = (popup) => {

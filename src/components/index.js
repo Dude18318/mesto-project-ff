@@ -34,6 +34,16 @@ const saveForm           = document.querySelector('form[name="new-place"]');
 const popupImage         = document.querySelector('.popup__image');
 const popupCaption       = document.querySelector('.popup__caption');
 
+// Ищем все кнопки закрытия попапа и навешиваем слушателя
+const popupCloseButtons = document.querySelectorAll('.popup__close');
+popupCloseButtons.forEach((closeButton) => {
+   closeButton.addEventListener('click',  (evt) => {
+		// находим открытый попап
+		const popup = evt.target.closest('.popup_is-opened');
+    closeModal(popup);
+  })
+});
+
 // Обработчик сохранения персональных данных
 const handleEditFormSubmit = (evt) => {
 	evt.preventDefault();
