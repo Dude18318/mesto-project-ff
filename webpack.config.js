@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     publicPath: '',
+    assetModuleFilename: '[name][ext]'
   },
   mode: 'development',
   devServer: {
