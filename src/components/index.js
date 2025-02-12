@@ -54,8 +54,7 @@ const popupCaption = document.querySelector('.popup__caption');
 let ownerId = '';
 let initialCards = '';
 
-const setPopUpButtonText = (form, text) => {
-	let popupButton = form.querySelector('.popup__button');
+const setPopUpButtonText = (popupButton, text) => {
 	popupButton.textContent = text;
 }
 
@@ -98,15 +97,19 @@ popupCloseButtons.forEach((closeButton) => {
 // Обработчик сохранения персональных данных
 const handleEditFormSubmit = (evt) => {
 	evt.preventDefault();
-	profileTitle.textContent = nameInput.value;
-	profileDescription.textContent = jobInput.value;
-	evt.currentTarget.removeEventListener('submit', handleEditFormSubmit);
-	setPopUpButtonText(formEditProfile, 'Сохранение...')
-	updateUserProfile(profileTitle.textContent, profileDescription.textContent)
+
+	setPopUpButtonText(evt.submitter, 'Сохранение...')
+	updateUserProfile(nameInput.value, jobInput.value)
 		.then(res => { console.log(res) })
 		.catch(err => { console.log('Ошибка запроса:', err) })
-		.finally(setPopUpButtonText(formEditProfile, 'Сохранить'));
-	closeModal(popupEditProfile);
+		.finally(() => {
+			setPopUpButtonText(evt.submitter, 'Сохранить');
+			profileTitle.textContent = nameInput.value;
+			profileDescription.textContent = jobInput.value;
+			closeModal(popupEditProfile)
+		});
+
+
 }
 
 // обработчик кнопки редактироания профиля
@@ -117,7 +120,7 @@ const handleEditButton = (evt) => {
 	clearValidation(saveForm, validationConfig);
 	openModal(popupEditProfile);
 
-	formEditProfile.addEventListener('submit', handleEditFormSubmit);
+
 }
 
 // Обработчик кнопки сохранения новой карточки
@@ -128,7 +131,7 @@ const handleSaveNewPlace = (evt) => {
 		name: newCardName.value,
 		link: newCardUrl.value,
 	}
-	setPopUpButtonText(saveForm, 'Сохранение...')
+	setPopUpButtonText(evt.submitter, 'Сохранение...')
 	addNewCard(newCardName.value, newCardUrl.value)
 		.then(
 			(data) => {
@@ -142,13 +145,12 @@ const handleSaveNewPlace = (evt) => {
 				}
 				const cardNode = createCard(card, removeCard, handleOpenImage, likeCard, unlikeCard);
 				placesListElement.prepend(cardNode);
-				newCardName.value = '';
-				newCardUrl.value = '';
-
+				evt.target.reset();
 			}).catch(err => console.log('Ошибка запроса:', err))
-		.finally(setPopUpButtonText(saveForm, 'Сохранить'));
-
-	closeModal(popupNewCard);
+		.finally(() => {
+			setPopUpButtonText(evt.submitter, 'Сохранить');
+			closeModal(popupNewCard);
+		})
 }
 
 // обработчик кнопки '+'
@@ -160,12 +162,13 @@ const handleAddButton = (evt) => {
 
 const handleNewAvatarForm = (evt) => {
 	evt.preventDefault();
-	setPopUpButtonText(newAvatarForm, 'Сохранение...')
+	setPopUpButtonText(evt.submitter, 'Сохранение...')
 	updateAvatar(avatarUrlInput.value).then(() => profileImage.style.backgroundImage = `url(${avatarUrlInput.value})`)
 		.catch(err => console.log('Ошибка запроса'))
-		.finally(setPopUpButtonText(newAvatarForm, 'Сохранить'));
-	closeModal(popupTypeRefresh);
-
+		.finally(() => {
+			setPopUpButtonText(evt.submitter, 'Сохранить');
+			closeModal(popupTypeRefresh)
+		});
 }
 
 const handleImageEditButton = (evt) => {
