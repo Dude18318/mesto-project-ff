@@ -151,7 +151,6 @@ const handleSaveNewPlace = (evt) => {
 			setPopUpButtonText(evt.submitter, 'Сохранить');
 		})
 }
-
 // обработчик кнопки '+'
 const handleAddButton = (evt) => {
 	openModal(popupNewCard);
