@@ -100,16 +100,15 @@ const handleEditFormSubmit = (evt) => {
 
 	setPopUpButtonText(evt.submitter, 'Сохранение...')
 	updateUserProfile(nameInput.value, jobInput.value)
-		.then(res => { console.log(res) })
-		.catch(err => { console.log('Ошибка запроса:', err) })
-		.finally(() => {
-			setPopUpButtonText(evt.submitter, 'Сохранить');
+		.then(() => {
 			profileTitle.textContent = nameInput.value;
 			profileDescription.textContent = jobInput.value;
 			closeModal(popupEditProfile)
+		})
+		.catch(err => { console.log('Ошибка запроса:', err) })
+		.finally(() => {
+			setPopUpButtonText(evt.submitter, 'Сохранить');
 		});
-
-
 }
 
 // обработчик кнопки редактироания профиля
@@ -146,10 +145,10 @@ const handleSaveNewPlace = (evt) => {
 				const cardNode = createCard(card, removeCard, handleOpenImage, likeCard, unlikeCard);
 				placesListElement.prepend(cardNode);
 				evt.target.reset();
+				closeModal(popupNewCard);
 			}).catch(err => console.log('Ошибка запроса:', err))
 		.finally(() => {
 			setPopUpButtonText(evt.submitter, 'Сохранить');
-			closeModal(popupNewCard);
 		})
 }
 
@@ -163,11 +162,13 @@ const handleAddButton = (evt) => {
 const handleNewAvatarForm = (evt) => {
 	evt.preventDefault();
 	setPopUpButtonText(evt.submitter, 'Сохранение...')
-	updateAvatar(avatarUrlInput.value).then(() => profileImage.style.backgroundImage = `url(${avatarUrlInput.value})`)
+	updateAvatar(avatarUrlInput.value).then(() => {
+		profileImage.style.backgroundImage = `url(${avatarUrlInput.value})`
+		closeModal(popupTypeRefresh)
+	})
 		.catch(err => console.log('Ошибка запроса'))
 		.finally(() => {
 			setPopUpButtonText(evt.submitter, 'Сохранить');
-			closeModal(popupTypeRefresh)
 		});
 }
 
